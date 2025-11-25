@@ -1,0 +1,53 @@
+cd ~/greengrass-car-counter
+nano recipe-car-counter-v1.0.6.json
+
+{
+  "RecipeFormatVersion": "2020-01-25",
+  "ComponentName": "com.example.CarCounterGreengrass",
+  "ComponentVersion": "1.0.6",
+  "ComponentDescription": "Greengrass V2 Car Counter with YOLOv5 Object Detection",
+  "ComponentPublisher": "AWS",
+  "ComponentDependencies": {
+    "aws.greengrass.Nucleus": {
+      "VersionRequirement": ">=2.0.0"
+    }
+  },
+  "ComponentConfiguration": {
+    "DefaultConfiguration": {
+      "accessControl": {
+        "aws.greengrass.ipc.mqttproxy": {
+          "com.example.CarCounterGreengrass:mqttproxy:1": {
+            "policyDescription": "Allows access to publish car counting results to AWS IoT Core",
+            "operations": [
+              "aws.greengrass#PublishToIoTCore"
+            ],
+            "resources": [
+              "greengrass/v2/car-counter/results"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "Manifests": [
+    {
+      "Platform": {"os": "linux"},
+      "Lifecycle": {
+        "Install": {
+          "RequiresPrivilege": false,
+          "Script": "echo 'Car Counter v1.0.6 - Dependencies should be pre-installed'"
+        },
+        "Run": {
+          "RequiresPrivilege": false,
+          "Script": "/usr/bin/python3 {artifacts:path}/python_code/car_counter.py"
+        }
+      },
+      "Artifacts": [
+        {
+          "Uri": "s3://greengrass-v2-tutorial-giovanni/artifacts/com.example.CarCounterGreengrass/1.0.6/car_counter.zip",
+          "Unarchive": "ZIP"
+        }
+      ]
+    }
+  ]
+}
