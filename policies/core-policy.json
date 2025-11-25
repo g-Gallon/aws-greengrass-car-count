@@ -1,0 +1,60 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iot:Publish",
+        "iot:Receive",
+        "iot:Subscribe",
+        "iot:Connect"
+      ],
+      "Resource": [
+        "arn:aws:iot:us-east-1:YOUR_AWS_ACCOUNT_ID:topicfilter/greengrass/v2/*",
+        "arn:aws:iot:us-east-1:YOUR_AWS_ACCOUNT_ID:topicfilter/$aws/things/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iot:GetThingShadow",
+        "iot:UpdateThingShadow",
+        "iot:DeleteThingShadow"
+      ],
+      "Resource": [
+        "arn:aws:iot:us-east-1:YOUR_AWS_ACCOUNT_ID:thing/*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "greengrass:BatchAssociateClientDeviceWithCoreDevice",
+        "greengrass:BatchDisassociateClientDeviceFromCoreDevice",
+        "greengrass:ListClientDevicesAssociatedWithCoreDevice",
+        "greengrass:GetCoreDevice"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:GetBucketLocation"
+      ],
+      "Resource": "arn:aws:s3:::*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iot:DescribeThing",
+        "iot:CreateThing",
+        "iot:CreateKeysAndCertificate",
+        "iot:DescribeEndpoint",
+        "iot:UpdateThingShadow",
+        "iot:GetThingShadow",
+        "iot:RegisterThing"
+      ],
+      "Resource": "*"
+    }
+  ]
+}
